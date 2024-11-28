@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryManagementApp
+namespace LibraryManagerApp
 {
     public record Book(string Title, string Author, int Year, string Genre);
 }
