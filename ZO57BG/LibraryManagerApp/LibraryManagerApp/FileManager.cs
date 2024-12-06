@@ -48,7 +48,8 @@ namespace LibraryManagerApp
                 File.WriteAllText(_filePath, jsonContent);
                 Console.WriteLine("Konyvek sieresen mentve");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine($"Hiba tortent a konyvek mentesekor: {ex.Message}");
             }
         }

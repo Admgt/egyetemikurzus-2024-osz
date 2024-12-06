@@ -10,14 +10,26 @@ namespace LibraryManagerApp
     {
         private readonly List<Book> _books;
 
-        public LibraryManager(List<Book> books)
+        private readonly FileManager fileManager;
+
+        public LibraryManager(List<Book> books, string filePath)
         {
             _books = books;
+            fileManager = new FileManager(filePath);
         }
 
-        public void AddBook(string title, string author, int year, string genre) { 
-            _books.Add(new Book(title, author, year, genre));
-            Console.WriteLine("Konyv sikeresen hozzaadva");
+        public void AddBook(Book book) {
+            try
+            {
+                var books = fileManager.LoadBooks();
+                books.Add(book);
+                fileManager.SaveBooks(books);
+                Console.WriteLine("Book added successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding book: {ex.Message}");
+            }
         }
 
         public void DisplayFilteredBooks(string genre)
@@ -75,6 +87,30 @@ namespace LibraryManagerApp
             else
             {
                 Console.WriteLine("Nincs konyv az adott szerzotol");
+            }
+        }
+
+        public void DisplayAllBooks()
+        {
+            try
+            {
+                var books = fileManager.LoadBooks();
+                if(books.Count == 0)
+                {
+                    Console.WriteLine("Nem talalhato konyv");
+                }
+                else
+                {
+                    Console.WriteLine("Az osszes konyv:");
+                    foreach(var book in books)
+                    {
+                        Console.WriteLine($"- {book.Title} by {book.Author} ({book.Year}) - Genre: {book.Genre}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Valami hiba tortent: {ex.Message}");
             }
         }
 
