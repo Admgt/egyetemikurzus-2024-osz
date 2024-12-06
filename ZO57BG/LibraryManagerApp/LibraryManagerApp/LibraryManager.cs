@@ -15,6 +15,11 @@ namespace LibraryManagerApp
             _books = books;
         }
 
+        public void AddBook(string title, string author, int year, string genre) { 
+            _books.Add(new Book(title, author, year, genre));
+            Console.WriteLine("Konyv sikeresen hozzaadva");
+        }
+
         public void DisplayFilteredBooks(string genre)
         {
             var filteredBooks = _books
@@ -36,6 +41,21 @@ namespace LibraryManagerApp
 
             Console.WriteLine($"\nLegkorabban kiadott konyv: {oldestBook}");
             Console.WriteLine($"Legujabban kiadott konyv: {newestBook}");
+        }
+
+        public void DisplayBooksGroupedByGenre()
+        {
+            var groupedBooks = _books.GroupBy(b => b.Genre);
+
+            Console.WriteLine("\nMufaj szerint csoportositott konyvek:");
+            foreach(var group in groupedBooks)
+            {
+                Console.WriteLine($"\nGenre: {group.Key}");
+                foreach(var book in group)
+                {
+                    Console.WriteLine($"- {book.Title} by {book.Author} ({book.Year})");
+                }
+            }
         }
     }
 }

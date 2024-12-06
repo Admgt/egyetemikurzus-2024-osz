@@ -39,5 +39,18 @@ namespace LibraryManagerApp
                 return new List<Book>();
             }
         }
+
+        public void SaveBooks(List<Book> books)
+        {
+            try
+            {
+                string jsonContent = JsonSerializer.Serialize(books, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(_filePath, jsonContent);
+                Console.WriteLine("Konyvek sieresen mentve");
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Hiba tortent a konyvek mentesekor: {ex.Message}");
+            }
+        }
     }
 }
