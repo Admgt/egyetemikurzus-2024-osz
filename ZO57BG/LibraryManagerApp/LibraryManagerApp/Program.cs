@@ -28,8 +28,7 @@ namespace LibraryManagementApp
                     Console.WriteLine("6. Legujabb es legregebbi konyv");
                     Console.WriteLine("7. Kilepes");
 
-                    Console.Write("Choose an option: ");
-                    string choice = Console.ReadLine();
+                    string choice = Validate.GetValidInput("Valassz egy opciot: ");
 
                     switch (choice)
                     {
@@ -37,27 +36,21 @@ namespace LibraryManagementApp
                             libraryManager.DisplayAllBooks();
                             break;
                         case "2":
-                            Console.Write("Enter a genre to filter: ");
-                            string genre = Console.ReadLine();
+                            string genre = Validate.GetValidInput("Adj meg egy mufajt: ");
                             libraryManager.DisplayFilteredBooks(genre);
                             break;
                         case "3":
                             libraryManager.DisplayBooksGroupedByGenre();
                             break;
                         case "4":
-                            Console.Write("Enter an author to search: ");
-                            string author = Console.ReadLine();
+                            string author = Validate.GetValidInput("Adj meg egy szerzot: ");
                             libraryManager.SearchBooksByAuthor(author);
                             break;
                         case "5":
-                            Console.Write("Enter book title: ");
-                            string title = Console.ReadLine();
-                            Console.Write("Enter author: ");
-                            string newAuthor = Console.ReadLine();
-                            Console.Write("Enter publication year: ");
-                            int year = int.Parse(Console.ReadLine());
-                            Console.Write("Enter genre: ");
-                            string newGenre = Console.ReadLine();
+                            string title = Validate.GetValidInput("Konyv cime: ");
+                            string newAuthor = Validate.GetValidInput("Konyv szerzoje: ");
+                            int year = Validate.GetValidYear("Konyv kiadasi eve: ");
+                            string newGenre = Validate.GetValidInput("Konyv mufaja: ");
 
                             libraryManager.AddBook(new Book(title, newAuthor, year, newGenre));
                             break;
