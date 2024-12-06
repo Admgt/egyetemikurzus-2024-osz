@@ -57,5 +57,30 @@ namespace LibraryManagerApp
                 }
             }
         }
+
+        public void SearchBooksByAuthor(string author)
+        {
+            var matchingBooks = _books
+                .Where(b => b.Author.Contains(author, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            Console.WriteLine("\nKonyvek szerzoktol:");
+            if(matchingBooks.Any())
+            {
+                foreach(var book in matchingBooks)
+                {
+                    Console.WriteLine($"{book.Title} by {book.Author} ({book.Year}) - Genre: {book.Genre}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nincs konyv az adott szerzotol");
+            }
+        }
+
+        public List<Book> GetBooks()
+        {
+            return _books;
+        }
     }
 }
